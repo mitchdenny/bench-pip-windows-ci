@@ -13,4 +13,4 @@ build_script:
   - "v\\Scripts\\pip --version"
   - "v\\Scripts\\pip list"
   - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt}"
-- "v\\Scripts\\pip list"
+  - "v\\Scripts\\pip list"
