@@ -19,9 +19,14 @@ jobs:
       artifactName: cache
       targetPath: $(Build.SourcesDirectory)
 - job: use
+  dependsOn: prep
   pool:
     vmImage: 'vs2017-win2016'
   steps:
+  - task: DownloadPipelineArtifact@0
+    inputs:
+      artifactName: cache
+      targetPath: $(Build.SourcesDirectory)
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.7'
