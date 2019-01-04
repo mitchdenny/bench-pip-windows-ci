@@ -8,7 +8,7 @@ build_script:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "pip list"
   - "echo ----- NEW VENV -----"
-  - ps: "Measure Command { python -m venv v} "
+  - ps: "Measure-Command { python -m venv v} "
   - "v\\Scripts\\python -m pip install -U pip"
   - "v\\Scripts\\pip --version"
   - "v\\Scripts\\pip list"
