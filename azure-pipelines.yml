@@ -43,10 +43,10 @@ jobs:
     inputs:
       filePath: install.ps1
       arguments: -CacheVenv
-- task: PublishPipelineArtifact@0
-  inputs:
-    artifactName: cache
-    targetPath: $(Build.SourcesDirectory)
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: cache
+      targetPath: $(Build.SourcesDirectory)
 - job: Use Cache
   pool:
     vmImage: 'vs2017-win2016'
