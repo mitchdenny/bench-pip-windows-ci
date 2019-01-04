@@ -1,12 +1,16 @@
 # Steve Dower suggested that using a venv might make things faster on Azure,
 # so we'll try it both ways.
 # https://twitter.com/zooba/status/1078548597195497472
-param([switch] $UseVenv)
+param([switch] $UseVenv, [switch]$CacheVenv)
 
 Set-PSDebug -Trace 1
 
-if ($UseVenv) {
+if ($CacheVenv) {
     python -m venv myenv
+    myenv\Scripts\activate
+}
+
+if ($UseVenv) {
     myenv\Scripts\activate
 }
 
