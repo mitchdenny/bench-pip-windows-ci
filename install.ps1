@@ -6,7 +6,8 @@ param([switch] $UseVenv, [switch]$CacheVenv)
 Set-PSDebug -Trace 1
 
 if ($CacheVenv) {
-    Measure-Command { python -m venv myenv }
+    $result = Measure-Command { python -m venv myenv }
+    Write-Output $result
     myenv\Scripts\activate
 }
 
