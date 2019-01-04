@@ -14,11 +14,11 @@ if ($UseVenv) {
     myenv\Scripts\activate
 }
 
-python -m pip install -U pip
+python -m pip install -U pip --cache-dir $BUILD_SOURCESDIRECTORY\pipcache
 
 python --version
 python -c "import struct; print(struct.calcsize('P') * 8, 'bits')"
 pip --version
 
-Measure-Command {pip install -r requirements.txt}
+Measure-Command {pip install -r requirements.txt --cache-dir $BUILD_SOURCESDIRECTORY\pipcache }
 pip list
