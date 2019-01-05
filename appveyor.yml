@@ -5,13 +5,10 @@ environment:
     - PYTHON: "C:\\Python37-x64"
 
 build_script:
-  - "tree %USERPROFILE%\\AppData\\Local\\pip\\cache"
-  - "rd %USERPROFILE%\\AppData\\Local\\pip\\cache /s /q"
   - "set"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "pip list"
-  - "echo ----- NEW VENV -----"
-  - ps: "Measure-Command { python -m venv v} "
+  - ps: "Measure-Command { python -m venv v --copies} "
   - "v\\Scripts\\python -m pip install -U pip"
   - "v\\Scripts\\pip --version"
   - "v\\Scripts\\pip list"
