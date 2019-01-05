@@ -15,4 +15,3 @@ build_script:
   - "v\\Scripts\\pip list"
   - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt}"
   - "v\\Scripts\\pip list"
-  - "tree %USERPROFILE%\\AppData\\Local\\pip\\cache"
