@@ -5,6 +5,8 @@ environment:
     - PYTHON: "C:\\Python37-x64"
 
 build_script:
+  - "dir"
+  - "set"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "pip list"
   - "echo ----- NEW VENV -----"
