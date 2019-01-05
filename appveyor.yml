@@ -17,3 +17,6 @@ build_script:
 #  - "v\\Scripts\\pip list"
 #  - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt --no-cache-dir}"
 #  - "v\\Scripts\\pip list"
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
