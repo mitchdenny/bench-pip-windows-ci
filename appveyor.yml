@@ -7,7 +7,7 @@ environment:
 build_script:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "set"
-  - "dir C:\\Python37-x64\\\Lib"
+  - "dir C:\\Python37-x64\\Lib"
 #  - ps: "Measure-Command { python -m venv v } "
 #  - "v\\Scripts\\activate.bat"
 #  - "v\\Scripts\\python -m pip install -U pip"
