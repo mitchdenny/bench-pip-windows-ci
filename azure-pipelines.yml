@@ -2,40 +2,15 @@ trigger:
 - master
 
 jobs:
-- job: prep
+- job: bench
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - powershell: "get-process"
-  - powershell: "Get-MpPreference"
-  - powershell: Add-MpPreference -ExclusionProcess "python.exe" -Force
-  - powershell: "Get-MpPreference"
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.7'
       architecture: 'x64'
-  - task: PowerShell@2
-    inputs:
-      filePath: install.ps1
-      arguments: -CacheVenv
-  - task: PublishPipelineArtifact@0
-    inputs:
-      artifactName: cache
-      targetPath: $(Build.SourcesDirectory)
-- job: use
-  dependsOn: prep
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: DownloadPipelineArtifact@0
-    inputs:
-      artifactName: cache
-      targetPath: $(Build.SourcesDirectory)
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - task: PowerShell@2
-    inputs:
-      filePath: install.ps1
-      arguments: -UseVenv
+  - script:
+    | python -m pip install -U pip
+    | python -m pip --version
+    | python -m venv v
