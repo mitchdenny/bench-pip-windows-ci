@@ -3,12 +3,12 @@ os: Visual Studio 2017
 environment:
   matrix:
     - PYTHON: "C:\\Python37-x64"
-  APPVEYOR_RDP_PASSWORD: h@ckmePl3ase!
 
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 build_script:
+  - "echo %APPVEYOR_RDP_PASSWORD"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "set"
   - "dir C:\\Python37-x64\\Lib"
