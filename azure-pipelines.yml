@@ -7,6 +7,7 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - powershell: "get-process"
+  - script: "sc stop WinDefend"
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.7'
