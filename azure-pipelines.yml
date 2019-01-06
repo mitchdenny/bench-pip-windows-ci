@@ -10,7 +10,8 @@ jobs:
     inputs:
       versionSpec: '3.7'
       architecture: 'x64'
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-      python -m venv v
+  - powershell: |
+      measure-command { python -m pip install -U pip }
+      measure-command { python -m pip --version }
+      measure-command { python -m venv v }
+      get-childitem v
