@@ -4,24 +4,9 @@ environment:
   matrix:
     - PYTHON: "C:\\Python37-x64"
 
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
 build_script:
-  - "python -m pip --version"
-  - "echo %APPVEYOR_RDP_PASSWORD%"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - "set"
-  - "dir C:\\Python37-x64\\Lib"
-  - "tree C:\\Python37-x64\\Lib\\ensurepip"
-  - "type C:\\Python37-x64\\Lib\\ensurepip\\__init__.py"
-#  - ps: "Measure-Command { python -m venv v } "
-#  - "v\\Scripts\\activate.bat"
-#  - "v\\Scripts\\python -m pip install -U pip"
-#  - "v\\Scripts\\pip --version"
-#  - "v\\Scripts\\pip list"
-#  - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt --no-cache-dir}"
-#  - "v\\Scripts\\pip list"
-
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: "Measure-Command { python -m venv v } "
+  - "v\\Scripts\\activate.bat"
+  - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt}"
+  - "v\\Scripts\\pip list"
