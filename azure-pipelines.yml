@@ -15,4 +15,5 @@ jobs:
       measure-command { python -m pip install -U pip }
       measure-command { python -m pip --version }
       measure-command { python -m venv v }
+      measure-command { python -m venv x }
       get-childitem v
