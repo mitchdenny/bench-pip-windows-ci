@@ -54,24 +54,45 @@ jobs:
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
   - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
       python -m pip install -U pip
       python -m pip --version
     displayName: Update PIP.
   - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
       python -m venv A
     displayName: Create environment
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
   - script: |
       call A\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
   - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
       python -m pip install -U pip
       python -m pip --version
     displayName: Update PIP.
   - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
       python -m venv B
     displayName: Create environment
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
   - script: |
       call B\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
