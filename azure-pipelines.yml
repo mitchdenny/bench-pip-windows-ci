@@ -13,16 +13,16 @@ jobs:
   - powershell: |
       # Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
-  - powershell: |
+  - script: |
       python -m pip install -U pip
       python -m pip --version
     displayName: Update PIP.
-  - powershell: |
+  - script: |
       python -m venv X
     displayName: Create environment X.
-  - powershell: |
+  - script: |
       python -m venv Y
     displayName: Create environment  Y
-  - powershell: |
+  - script: |
       python -m venv Z
     displayName: Create environment Z
