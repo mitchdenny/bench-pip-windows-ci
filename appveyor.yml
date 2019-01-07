@@ -6,9 +6,9 @@ environment:
 
 build_script:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
+  - "dir %USERPROFILE%\\AppData\\Local\\pip\\cache /s /a"
   - "python -m venv v"
-  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
+  - "dir %USERPROFILE%\\AppData\\Local\\pip\\cache /s /a"
   - "v\\Scripts\\activate.bat"
   - "python -m pip install -r requirements.txt}"
-  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
+  - "dir %USERPROFILE%\\AppData\\Local\\pip\\cache /s /a"
