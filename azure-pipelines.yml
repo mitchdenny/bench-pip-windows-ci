@@ -39,7 +39,7 @@ jobs:
       python -m venv A
     displayName: Create environment
   - script: |
-      C\Scripts\activate.bat
+      call A\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
 - job: scenario3 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
