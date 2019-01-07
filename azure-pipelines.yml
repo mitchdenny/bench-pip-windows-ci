@@ -2,7 +2,7 @@ trigger:
 - master
 
 jobs:
-- job: scenario-1 # Disable Windows Defender, pre-install PIP 18.x create environment only.
+- job: scenario1 # Disable Windows Defender, pre-install PIP 18.x create environment only.
   pool:
     vmImage: 'vs2017-win2016'
   steps:
@@ -20,7 +20,7 @@ jobs:
   - script: |
       python -m venv A
     displayName: Create environment
-- job: scenario-2 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies.
+- job: scenario2 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies.
   pool:
     vmImage: 'vs2017-win2016'
   steps:
