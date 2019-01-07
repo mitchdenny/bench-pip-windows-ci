@@ -18,11 +18,17 @@ jobs:
       python -m pip --version
     displayName: Update PIP.
   - script: |
-      python -m venv X
-    displayName: Create environment X.
+      python -m venv A
+    displayName: Create environment first time (A)
   - script: |
-      python -m venv Y
-    displayName: Create environment  Y
+      python -m venv B
+    displayName: Create environment second time (B)
   - script: |
-      python -m venv Z
-    displayName: Create environment Z
+      python -m venv C
+      C\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Create environment third time (C) and add dependencies
+  - script: |
+      A\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Activate existing environment (A) and add dependencies
