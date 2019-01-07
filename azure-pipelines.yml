@@ -2,7 +2,7 @@ trigger:
 - master
 
 jobs:
-- job: bench
+- job: scenario-1 # Disable Windows Defender, pre-install PIP 18.x create environment only.
   pool:
     vmImage: 'vs2017-win2016'
   steps:
@@ -19,16 +19,27 @@ jobs:
     displayName: Update PIP.
   - script: |
       python -m venv A
-    displayName: Create environment first time (A)
+    displayName: Create environment
+- job: scenario-2 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies.
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7'
+      architecture: 'x64'
+  - powershell: |
+      Set-MpPreference -DisableRealtimeMonitoring $true
+    displayName: Disable Windows Defender real-time scanning
   - script: |
-      python -m venv B
-    displayName: Create environment second time (B)
+      python -m pip install -U pip
+      python -m pip --version
+    displayName: Update PIP.
   - script: |
-      python -m venv C
+      python -m venv A
+    displayName: Create environment
+  - script: |
+      python -m venv A
       C\Scripts\activate.bat
       python -m pip install -r requirements.txt
-    displayName: Create environment third time (C) and add dependencies
-  - script: |
-      A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate existing environment (A) and add dependencies
+    displayName: Activate and install dependencies.
