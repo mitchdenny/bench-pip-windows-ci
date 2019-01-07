@@ -130,3 +130,54 @@ jobs:
   - script: |
       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
     displayName: List HTTP cache contents
+- job: scenario3a # Leave Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7'
+      architecture: 'x64'
+  - script: |
+      dir %USERPROFILE%\AppData\Local
+    displayName: List HTTP cache contents
+  - script: |
+      python -m pip install -U pip
+      python -m pip --version
+    displayName: Update PIP.
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
+      python -m venv A
+    displayName: Create environment
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
+      call A\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
+      python -m pip install -U pip
+      python -m pip --version
+    displayName: Update PIP.
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
+      python -m venv B
+    displayName: Create environment
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
+  - script: |
+      call B\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
+  - script: |
+      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+    displayName: List HTTP cache contents
