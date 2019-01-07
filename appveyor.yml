@@ -14,3 +14,4 @@ build_script:
   - "v\\Scripts\\activate.bat"
   - "python -m pip install -r requirements.txt"
   - "dir %USERPROFILE%\\AppData\\Local\\pip\\cache /s /a"
+  - "dir C:\\pipcache /s /a"
