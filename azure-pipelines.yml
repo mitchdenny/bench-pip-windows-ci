@@ -61,7 +61,7 @@ jobs:
       python -m venv A
     displayName: Create environment
   - script: |
-      A\Scripts\activate.bat
+      call A\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
   - script: |
@@ -72,6 +72,6 @@ jobs:
       python -m venv B
     displayName: Create environment
   - script: |
-      B\Scripts\activate.bat
+      call B\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
