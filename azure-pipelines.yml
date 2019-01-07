@@ -54,7 +54,7 @@ jobs:
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
   - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+      dir %USERPROFILE%\AppData\Local
     displayName: List HTTP cache contents
   - script: |
       python -m pip install -U pip
