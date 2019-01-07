@@ -6,7 +6,9 @@ environment:
 
 build_script:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - ps: "Measure-Command { python -m venv v } "
+  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
+  - "python -m venv v"
+  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
   - "v\\Scripts\\activate.bat"
-  - ps: "Measure-Command {v\\Scripts\\pip install -r requirements.txt}"
-  - "v\\Scripts\\pip list"
+  - "python -m pip install -r requirements.txt}"
+  - "dir %USERPROFILE%\AppData\Local\pip\cache /s /a"
