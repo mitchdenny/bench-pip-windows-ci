@@ -256,10 +256,12 @@ jobs:
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6.pml
     displayName: Start procmon
   - script: |
+      set TEMP=D:\
       python -m venv A
     displayName: Create environment A
   - script: |
       python -m venv B
+      set TEMP=D:\
     displayName: Create environment B
   - script: |
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /terminate
