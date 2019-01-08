@@ -196,6 +196,7 @@ jobs:
       dotnet restore
       dotnet build
       dotnet run "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
+      dotnet run "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
   - script: |
       python -m pip install -U pip
       python -m pip --version
