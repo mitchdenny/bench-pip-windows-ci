@@ -245,10 +245,10 @@ jobs:
   - powershell: |
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
-  - script: |
-      dotnet restore
-      dotnet build
-      dotnet run -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ensurepip" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\DLLs" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\__pycache__" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\distutils" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\email" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xml" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\encodings" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\importlib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\venv" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\urllib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\collections" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\json" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xmlrpc" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ctypes"
+  # - script: |
+  #     dotnet restore
+  #     dotnet build
+  #     dotnet run -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ensurepip" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\DLLs" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\__pycache__" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\distutils" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\email" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xml" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\encodings" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\importlib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\venv" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\urllib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\collections" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\json" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xmlrpc" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ctypes"
   - script: |
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6.pml
     displayName: Start procmon
