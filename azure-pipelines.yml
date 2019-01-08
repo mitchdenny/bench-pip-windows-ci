@@ -260,10 +260,6 @@ jobs:
       python -m venv A
     displayName: Create environment A
   - script: |
-      python -m venv B
-      set TEMP=D:\
-    displayName: Create environment B
-  - script: |
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /terminate
     displayName: Stop procmon and upload logs.
   - task: PublishPipelineArtifact@0
