@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Warmup
@@ -10,13 +11,16 @@ namespace Warmup
             var directory = new DirectoryInfo(args[0]);
             var files = directory.GetFiles("*.*", SearchOption.AllDirectories);
 
-            foreach (var file in files)
+            for (var fileIndex = 0; fileIndex < files.Length; fileIndex++)
             {
-                using (var reader = new StreamReader(file.FullName))
+                using (var reader = new StreamReader(files[fileIndex].FullName))
                 {
-                    Console.Write($"Reading {file.FullName}...");
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+                    Console.Write($"Reading {fileIndex} of {files.Length} => {files[fileIndex].FullName}...");
                     var content = reader.ReadToEnd();
-                    Console.WriteLine($"done!");
+                    stopwatch.Stop();
+                    Console.WriteLine($"done ({stopwatch.ElapsedMilliseconds})!");
                 }                
             }
         }
