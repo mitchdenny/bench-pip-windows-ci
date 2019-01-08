@@ -242,6 +242,7 @@ jobs:
     inputs:
       versionSpec: '3.7'
       architecture: 'x64'
+      addToPath: true
   - powershell: |
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
@@ -257,6 +258,11 @@ jobs:
     displayName: Start procmon
   - script: |
       set TEMP=D:\
+      python -m pip install -U pip
+    displayName: Upgrade PIP to see if faster
+  - script: |
+      set TEMP=D:\
+      python -m pip --version      
       python -m venv A
     displayName: Create environment A
   - script: |
@@ -265,9 +271,8 @@ jobs:
   - task: PublishPipelineArtifact@0
     inputs:
       targetPath: $(System.DefaultWorkingDirectory)
-# - script: |
-#     call A\Scripts\activate.bat
-#     python -m pip install -U pip
-#     python -m pip --version
-#     python -m pip install -r requirements.txt
-#   displayName: Activate and install dependencies.
+  - script: |
+      call A\Scripts\activate.bat
+      python -m pip --version
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
