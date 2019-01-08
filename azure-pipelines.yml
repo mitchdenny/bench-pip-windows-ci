@@ -220,11 +220,9 @@ jobs:
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
   - script: |
-      dir c:\hostedtoolcache /s /a
-  - script: |
       dotnet restore
       dotnet build
-      dotnet run "C:\hostedtoolcache\windows\Python\3.7.0\x64\"
+      dotnet run "C:\hostedtoolcache\windows\Python\3.7.0\x64"
   - script: |
       python -m pip install -U pip
       python -m pip --version
