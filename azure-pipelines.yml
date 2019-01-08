@@ -208,3 +208,29 @@ jobs:
       call A\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
+- job: scenario5 # Run warm-up
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7'
+      architecture: 'x64'
+  - powershell: |
+      Set-MpPreference -DisableRealtimeMonitoring $true
+    displayName: Disable Windows Defender real-time scanning
+  - script: |
+      dotnet restore
+      dotnet build
+      dotnet run "C:\hostedtoolcache\windows\Python\3.7.0\x64\"
+  - script: |
+      python -m pip install -U pip
+      python -m pip --version
+    displayName: Update PIP.
+  - script: |
+      python -m venv A
+    displayName: Create environment
+  - script: |
+      call A\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
