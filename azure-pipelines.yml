@@ -234,3 +234,27 @@ jobs:
       call A\Scripts\activate.bat
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
+- job: scenario6 # Selective warm-up and install pip inside environment.
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7'
+      architecture: 'x64'
+  - powershell: |
+      Set-MpPreference -DisableRealtimeMonitoring $true
+    displayName: Disable Windows Defender real-time scanning
+  - script: |
+      dotnet restore
+      dotnet build
+      dotnet run "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ensurepip"
+  - script: |
+      python -m venv A
+    displayName: Create environment
+  - script: |
+      call A\Scripts\activate.bat
+      python -m pip install -U pip
+      python -m pip --version
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
