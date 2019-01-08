@@ -30,7 +30,6 @@ namespace Warmup
             }
 
             Console.WriteLine($"Starting warm-up of {files.Count} files.");
-            return;
 
             for (var fileIndex = 0; fileIndex < files.Count; fileIndex++)
             {
