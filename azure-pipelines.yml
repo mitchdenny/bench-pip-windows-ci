@@ -2,238 +2,238 @@ trigger:
 - master
 
 jobs:
-- job: scenario1 # Disable Windows Defender, pre-install PIP 18.x create environment only.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - powershell: |
-      Set-MpPreference -DisableRealtimeMonitoring $true
-    displayName: Disable Windows Defender real-time scanning
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-- job: scenario1a # Leave Windows Defender, pre-install PIP 18.x create environment only.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-- job: scenario2 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - powershell: |
-      Set-MpPreference -DisableRealtimeMonitoring $true
-    displayName: Disable Windows Defender real-time scanning
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-- job: scenario2a # Leave Windows Defender, pre-install PIP 18.x create environment and install dependencies.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-- job: scenario3 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - powershell: |
-      Set-MpPreference -DisableRealtimeMonitoring $true
-    displayName: Disable Windows Defender real-time scanning
-  - script: |
-      dir %USERPROFILE%\AppData\Local
-    displayName: List HTTP cache contents
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m venv B
-    displayName: Create environment
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      call B\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-- job: scenario3a # Leave Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - script: |
-      dir %USERPROFILE%\AppData\Local
-    displayName: List HTTP cache contents
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      python -m venv B
-    displayName: Create environment
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-  - script: |
-      call B\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-  - script: |
-      dir %USERPROFILE%\AppData\Local\pip\cache /s /a
-    displayName: List HTTP cache contents
-- job: scenario4 # Run warm-up
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - powershell: |
-      Set-MpPreference -DisableRealtimeMonitoring $true
-    displayName: Disable Windows Defender real-time scanning
-  - script: |
-      dotnet restore
-      dotnet build
-      dotnet run -r "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
-      dotnet run -r "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
-- job: scenario5 # Run warm-up
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7'
-      architecture: 'x64'
-  - powershell: |
-      Set-MpPreference -DisableRealtimeMonitoring $true
-    displayName: Disable Windows Defender real-time scanning
-  - script: |
-      dotnet restore
-      dotnet build
-      dotnet run -r "C:\hostedtoolcache\windows\Python\3.7.0\x64"
-  - script: |
-      python -m pip install -U pip
-      python -m pip --version
-    displayName: Update PIP.
-  - script: |
-      python -m venv A
-    displayName: Create environment
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
+# - job: scenario1 # Disable Windows Defender, pre-install PIP 18.x create environment only.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - powershell: |
+#       Set-MpPreference -DisableRealtimeMonitoring $true
+#     displayName: Disable Windows Defender real-time scanning
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+# - job: scenario1a # Leave Windows Defender, pre-install PIP 18.x create environment only.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+# - job: scenario2 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - powershell: |
+#       Set-MpPreference -DisableRealtimeMonitoring $true
+#     displayName: Disable Windows Defender real-time scanning
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+# - job: scenario2a # Leave Windows Defender, pre-install PIP 18.x create environment and install dependencies.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+# - job: scenario3 # Disable Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - powershell: |
+#       Set-MpPreference -DisableRealtimeMonitoring $true
+#     displayName: Disable Windows Defender real-time scanning
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m venv B
+#     displayName: Create environment
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       call B\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+# - job: scenario3a # Leave Windows Defender, pre-install PIP 18.x create environment and install dependencies, then do it again.
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       python -m venv B
+#     displayName: Create environment
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+#   - script: |
+#       call B\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+#   - script: |
+#       dir %USERPROFILE%\AppData\Local\pip\cache /s /a
+#     displayName: List HTTP cache contents
+# - job: scenario4 # Run warm-up
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - powershell: |
+#       Set-MpPreference -DisableRealtimeMonitoring $true
+#     displayName: Disable Windows Defender real-time scanning
+#   - script: |
+#       dotnet restore
+#       dotnet build
+#       dotnet run -r "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
+#       dotnet run -r "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64"
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
+# - job: scenario5 # Run warm-up
+#   pool:
+#     vmImage: 'vs2017-win2016'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.7'
+#       architecture: 'x64'
+#   - powershell: |
+#       Set-MpPreference -DisableRealtimeMonitoring $true
+#     displayName: Disable Windows Defender real-time scanning
+#   - script: |
+#       dotnet restore
+#       dotnet build
+#       dotnet run -r "C:\hostedtoolcache\windows\Python\3.7.0\x64"
+#   - script: |
+#       python -m pip install -U pip
+#       python -m pip --version
+#     displayName: Update PIP.
+#   - script: |
+#       python -m venv A
+#     displayName: Create environment
+#   - script: |
+#       call A\Scripts\activate.bat
+#       python -m pip install -r requirements.txt
+#     displayName: Activate and install dependencies.
 - job: scenario6 # Selective warm-up and install pip inside environment.
   pool:
     vmImage: 'vs2017-win2016'
@@ -250,8 +250,17 @@ jobs:
       dotnet build
       dotnet run -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ensurepip" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\DLLs" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\__pycache__" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\distutils" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\email" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xml" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\encodings" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\importlib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\venv" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\urllib" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\collections" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\json" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xmlrpc" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ctypes"
   - script: |
+      tools\procmon.exe /quiet /accepteula /loadconfig tools\procmon.pmc /backingfile scenario6.pml
+  - script: |
       python -m venv A
+    displayName: Start procmon
     displayName: Create environment
+  - script: |
+      tools\procmon.exe /terminate
+    displayName: Stop procmon and upload logs.
+  - task: PublishPipelineArtifact@0
+    inputs:
+      targetPath: $(System.DefaultWorkingDirectory)
   - script: |
       call A\Scripts\activate.bat
       python -m pip install -U pip
