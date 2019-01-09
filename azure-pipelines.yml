@@ -254,12 +254,8 @@ jobs:
       dotnet run -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ensurepip" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\DLLs" -d "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\__pycache__" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\distutils" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\email" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xml" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\encodings" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\importlib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\venv" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\urllib" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\collections" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\json" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xmlrpc" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\ctypes" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\xml" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\unittest" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\turtledemo" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\tkinter" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\test" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\sqlite3" -r "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\site-packages\setuptools" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\site-packages\pkg_resources" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\site-packages\pip" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\multiprocessing" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\logging" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\http" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\html" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\concurrent" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\idlelib" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\Lib\lib2to3" -r  "C:\hostedtoolcache\windows\Python\3.7.0\x64\tcl\tcl8.6"
     displayName: Warmup pass 1
   - script: |
-      start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6.pml
+      start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6-venv.pml
     displayName: Start procmon
-  - script: |
-      set TEMP=D:\
-      python -m pip install -U pip
-    displayName: Upgrade PIP to see if faster
   - script: |
       set TEMP=D:\
       python -m pip --version      
@@ -268,11 +264,16 @@ jobs:
   - script: |
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /terminate
     displayName: Stop procmon and upload logs.
+  - script: |
+      start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6-install.pml
+    displayName: Start procmon
+  - script: |
+      call A\Scripts\activate.bat
+      python -m pip install -r requirements.txt
+    displayName: Activate and install dependencies.
+  - script: |
+      start $(System.DefaultWorkingDirectory)\tools\procmon.exe /terminate
+    displayName: Stop procmon and upload logs.
   - task: PublishPipelineArtifact@0
     inputs:
       targetPath: $(System.DefaultWorkingDirectory)
-  - script: |
-      call A\Scripts\activate.bat
-      python -m pip --version
-      python -m pip install -r requirements.txt
-    displayName: Activate and install dependencies.
