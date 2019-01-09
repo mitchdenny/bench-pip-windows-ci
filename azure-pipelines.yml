@@ -247,6 +247,10 @@ jobs:
       Set-MpPreference -DisableRealtimeMonitoring $true
     displayName: Disable Windows Defender real-time scanning
   - script: |
+      mkdir D:\TEMP
+      mkdir D:\TMP
+      mkdir D:\LOCALAPPDATA
+  - script: |
       dotnet restore
       dotnet build
     displayName: Build warm-up app
@@ -257,7 +261,9 @@ jobs:
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6-venv.pml
     displayName: Start procmon
   - script: |
-      set TEMP=D:\
+      set TEMP=D:\TEMP
+      set TMP=D:\TMP
+      set LOCALAPPDATA=D:\LOCALAPPDATA
       python -m pip --version      
       python -m venv A
     displayName: Create environment A
@@ -268,10 +274,10 @@ jobs:
       start $(System.DefaultWorkingDirectory)\tools\procmon.exe /quiet /accepteula /loadconfig $(System.DefaultWorkingDirectory)\tools\procmon.pmc /backingfile $(System.DefaultWorkingDirectory)\scenario6-install.pml
     displayName: Start procmon
   - script: |
-      set TEMP=D:\
       call A\Scripts\activate.bat
-      echo %TEMP%
-      set TEMP=D:\
+      set TEMP=D:\TEMP
+      set TMP=D:\TMP
+      set LOCALAPPDATA=D:\LOCALAPPDATA
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
   - script: |
