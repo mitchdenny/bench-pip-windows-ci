@@ -270,6 +270,8 @@ jobs:
   - script: |
       set TEMP=D:\
       call A\Scripts\activate.bat
+      echo %TEMP%
+      set TEMP=D:\
       python -m pip install -r requirements.txt
     displayName: Activate and install dependencies.
   - script: |
